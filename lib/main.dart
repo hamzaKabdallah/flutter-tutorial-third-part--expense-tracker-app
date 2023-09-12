@@ -1,4 +1,4 @@
-import 'package:expense_app/expnese.dart';
+import 'package:expense_app/widgents/expnese.dart';
 import 'package:flutter/material.dart';
 
 void main() {
