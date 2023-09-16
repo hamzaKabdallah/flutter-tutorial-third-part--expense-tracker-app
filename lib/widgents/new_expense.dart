@@ -39,8 +39,31 @@ class _NewExpenseState extends State<NewExpense> {
   }
 
   void _onSubmitPress() {
-    print(_titleController.text);
-    print(_amountController.text);
+    final double? enteredAmount =
+        double.tryParse(_amountController.text.trim());
+    final isAmountValid = enteredAmount != null && enteredAmount >= 0;
+
+    if (!isAmountValid ||
+        _titleController.text.trim().isEmpty ||
+        selectedDate == null) {
+      showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: const Text('Invalid Input'),
+                content: const Text('Enter a valid data'),
+                actions: [
+                  TextButton(
+                    child: const Text(
+                      'Okay',
+                    ),
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                    },
+                  )
+                ],
+              ));
+      return;
+    }
   }
 
   @override
