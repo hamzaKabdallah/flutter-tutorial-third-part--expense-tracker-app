@@ -66,6 +66,7 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
     Widget mainWidget =
         const Center(child: Text('No Items in the list To View'));
     if (_registeredExpenses.isNotEmpty) {
@@ -81,14 +82,23 @@ class _ExpensesState extends State<Expenses> {
               Icons.add,
             ))
       ]),
-      body: Column(
-        children: [
-          Chart(expenses: _registeredExpenses),
-          Expanded(
-            child: mainWidget,
-          )
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registeredExpenses),
+                Expanded(
+                  child: mainWidget,
+                )
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _registeredExpenses)),
+                Expanded(
+                  child: mainWidget,
+                )
+              ],
+            ),
     );
   }
 }
